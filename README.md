@@ -33,7 +33,7 @@ In total, 1613 2D descriptors and 213 3D descriptors were calculated for each mo
 These decriptors range from atom counts, to logS values. A full list of all descriptors can be found [here](https://mordred-descriptor.github.io/documentation/master/descriptors.html), in addition to an explanation of each one.
 
 The data is stored a pickled Pandas Dataframe, which can be loaded in Python with the `read_pickle` function from the Pandas library. 
-The data can be obtained using this (link)[https://imperialcollegelondon.box.com/v/fons-datathon-descriptors] using the password 'datathon2021'.
+The data can be obtained using this [link](https://imperialcollegelondon.box.com/v/fons-datathon-descriptors) using the password 'datathon2021'.
 In this Dataframe, the SMILES strings for each molecule can be found in the "SMILES" column, in addition to the RDKit Molecule object in the "RDKit_Molecule" column. 
 Each molecule has a unique index number, from 0 to 29,075. 
 
