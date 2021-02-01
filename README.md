@@ -23,3 +23,5 @@ This search returned 29374 hits. Further cleaning will be required to remove ent
  - Void Volume
  - Is Centrosymmetric
  - Is Sohncke
+
+This data is stored as a both a csv and a pickle file (search_dict_test.csv and search_results.pickle, respectively). The csv file is to enable the user to view that data, but should not be used for further data analysis, owing to the fact that pandas DataFrames save python dictionary entries (in this case the contacts columns) as strings. The raw python dictionary object (from which the DataFrame was created) containing all of the data is saved in the pickle file. The 3D coordinates of all small molecule hits are saved in small_molecule_search.mol2.
