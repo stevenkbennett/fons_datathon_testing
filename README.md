@@ -30,7 +30,7 @@ Packing shells have been calculated with a packing shell size of 12. All of the 
 
 # Descriptor Calculations
 Following the search of the CSD, descriptors were calculated using the Python package [Mordred](https://mordred-descriptor.github.io).
-2D and 3D descriptors were calculated for the remaining 29,079 molecules obtained from the CSD. Descriptor calculations failed for 295 molecules due to the failure to identify rings whilst using the RDKit function `SanitizeMol` or an invalid molecule according to RDKit.
+2D and 3D descriptors were calculated for the 29,374 molecules obtained from the CSD. Descriptor calculations failed for 295 molecules due to the failure to identify rings whilst using the RDKit function `SanitizeMol` or an invalid molecule according to RDKit.
 In total, 1613 2D descriptors and 213 3D descriptors were calculated for each molecule.
 These descriptors can be found within the `Mordred_Descriptors.csv`, and they range from atom counts, to logS values. A full list of all descriptors can be found [here](https://mordred-descriptor.github.io/documentation/master/descriptors.html), in addition to an explanation of each one.
 In addition, the fingerprints for each molecule can be found in the
