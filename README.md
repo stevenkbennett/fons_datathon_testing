@@ -30,13 +30,17 @@ Packing shells have been calculated with a packing shell size of 12. All of the 
 
 # Descriptor Calculations
 Following the search of the CSD, descriptors were calculated using the Python package [Mordred](https://mordred-descriptor.github.io).
-2D and 3D descriptors were calculated for 29,095 molecules searched from the CSD. Descriptor calculations failed for 279 molecules due to the failure to idenitfy rings whilst using the RDKit function `SanitizeMol`.
+2D and 3D descriptors were calculated for the remaining 29,079 molecules obtained from the CSD. Descriptor calculations failed for 295 molecules due to the failure to identify rings whilst using the RDKit function `SanitizeMol` or an invalid molecule according to RDKit.
 In total, 1613 2D descriptors and 213 3D descriptors were calculated for each molecule.
-These decriptors range from atom counts, to logS values. A full list of all descriptors can be found [here](https://mordred-descriptor.github.io/documentation/master/descriptors.html), in addition to an explanation of each one.
-
-The data is stored a pickled Pandas Dataframe, which can be loaded in Python with the `read_pickle` function from the Pandas library. 
+These descriptors can be found within the `Mordred_Descriptors.csv`, and they range from atom counts, to logS values. A full list of all descriptors can be found [here](https://mordred-descriptor.github.io/documentation/master/descriptors.html), in addition to an explanation of each one.
+In addition, the fingerprints for each molecule can be found in the
+`Fingerprints` column of the the DataFrame (only in the pickled file).
+Each [Morgan](https://www.rdkit.org/UGM/2012/Landrum_RDKit_UGM.Fingerprints.Final.pptx.pdf) fingerprint is a 1024 length vector containing an encoding of this functional groups present within a molecule.
+The pickled DataFrame also included Coulomb matrices and Sine matrices of the molecules, calculated using the [DScribe](https://singroup.github.io/dscribe/latest/index.html) package.
+More information about these descriptors can be found [here](https://singroup.github.io/dscribe/latest/tutorials/basics.html)
+The data is stored a pickled Pandas DataFrame, which can be loaded in Python with the `read_pickle` function from the Pandas library. 
 The data can be obtained using this [link](https://imperialcollegelondon.box.com/v/fons-datathon-descriptors) using the password 'datathon2021'.
-In this Dataframe, the SMILES strings for each molecule can be found in the "SMILES" column, in addition to the RDKit Molecule object in the "RDKit_Molecule" column. 
-Each molecule has a unique index number, from 0 to 29,075. 
+In this DataFrame, the SMILES strings for each molecule can be found in the "SMILES" column, in addition to the index linking the molecule back to the table of properties from the original . 
+
 
 
