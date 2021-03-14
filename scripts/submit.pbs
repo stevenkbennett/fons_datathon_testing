@@ -6,4 +6,6 @@ source activate fonsdatathon
 
 cd $PBS_O_WORKDIR
 
-python calculate_mordred_descritpors.py &> Progress.log
+export NCPUS=$(wc -l $PBS_NODEFILE | awk '{print $1}')
+
+python calculate_mordred_descriptors.py &> Progress.log

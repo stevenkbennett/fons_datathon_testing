@@ -13,6 +13,14 @@ from time import sleep
 from warnings import warn
 import pandas as pd
 from collections import defaultdict
+import logging
+from rdkit.Chem.rdmolfiles import SDWriter
+
+logging.basicConfig(
+    format="%(asctime)s %(message)s",
+    datefmt="%m/%d/%Y %I:%M:%S %p",
+    level=logging.INFO,
+)
 
 
 def mol2_to_smiles(file=None, sanitize=True):
@@ -44,7 +52,7 @@ def mol2_to_smiles(file=None, sanitize=True):
 
 def quick_conf_search(smiles, cache):
     try:
-        print(f"Optimising {smiles}")
+        logging.info(f"Optimising {smiles}")
         mol = Chem.MolFromSmiles(smiles)
         mol = Chem.AddHs(mol)
         Chem.Kekulize(mol)
@@ -105,10 +113,10 @@ def calculate_descriptors(mol, cache):
             cache[inchikey] = res
             return res
         except Exception as err:
-            print(err)
+            logging.error(err)
             return None
     except Exception as err:
-        print(err)
+        logging.error(err)
         return None
 
 
@@ -118,12 +126,12 @@ def parallel_conf_search(smiles, processes=-1):
     m = Manager()
     d = m.dict()
     # Create processes
-    print(f"Running conformer searches with {processes} processes.")
+    logging.info(f"Running conformer searches with {processes} processes.")
     pool = mp.Pool(processes)
     f = pool.starmap_async(
         quick_conf_search,
         it.product(smiles, [d]),
-        error_callback=lambda x: print(
+        error_callback=lambda x: logging.error(
             "An error occured during conformer calculation."
         ),
     )
@@ -136,12 +144,14 @@ def parallel_descriptor_calc(mols, processes=-1):
     m = Manager()
     d = m.dict()
     # Create processes
-    print(f"Running descriptor calculations with {processes} processes.")
+    logging.info(
+        f"Running descriptor calculations with {processes} processes."
+    )
     pool = mp.Pool(processes)
     f = pool.starmap_async(
         calculate_descriptors,
         it.product(mols, [d]),
-        error_callback=lambda x: print(
+        error_callback=lambda x: logging.error(
             "An error occured during conformer calculation."
         ),
     )
@@ -156,33 +166,42 @@ def parse_results(smiles, res):
             continue
         d["SMILES"].append(smiles[i])
         for name, val in r.items():
-            if type(val) == error.Missing:
+            if type(val) != float:
                 val = None
             d[name].append(val)
     return pd.DataFrame(d)
 
 
 def main():
-    print("Calculating Mordred descriptors.")
+    logging.info("Calculating Mordred descriptors.")
     # Molecules where an error occured at any part of the calculation
     # are stored as None.
     # # This is so the index is maintained throughout the descriptor calculation.
-    # smiles = mol2_to_smiles(
-    #     "/Users/stevenbennett/PhD/FONS_Datathon/small_molecule_search.mol2"
-    # )
+    smiles = mol2_to_smiles(
+        "/rds/general/user/sb2518/home/PhD/FONS_Datathon/small_molecule_search.mol2"
+    )[:100]
     # Smiles for testing
-    smiles = ["C" * i for i in range(1, 200)][:8]
-    smiles += [None]
-    smiles += ["C" * i for i in range(1, 200)][:8]
-    print("Performing conformer search")
-    rdmols = parallel_conf_search(smiles)
-    res = parallel_descriptor_calc(rdmols)
+    # smiles = ["C" * i for i in range(1, 200)][:8]
+    # smiles += [None]
+    # smiles += ["C" * i for i in range(1, 200)][:8]
+    logging.info("Performing conformer search")
+    processes = os.getenv("NCPUS", None)
+    if processes is None:
+        processes = -1
+    processes = int(processes)
+    rdmols = parallel_conf_search(smiles, processes)
+    res = parallel_descriptor_calc(rdmols, processes)
     df = parse_results(smiles, res)
     df = df.dropna(how="all")
     df["Original_Index"] = df.index
     df = df.reset_index(drop=True)
-    print(df)
     df.to_csv("Mordred_Descriptors.csv", index=False, header=True)
+    writer = SDWriter("Optimised_Molecules.sdf")
+    logging.info("Writing molecules.")
+    for mol in rdmols:
+        if mol is not None:
+            writer.write(mol)
+    logging.info("Finished writing molecules.")
 
 
 if __name__ == "__main__":
