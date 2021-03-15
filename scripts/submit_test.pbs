@@ -7,6 +7,7 @@ source activate fonsdatathon
 cd $PBS_O_WORKDIR
 
 export NCPUS=$(wc -l $PBS_NODEFILE | awk '{print $1}')
+echo 'Running job with $NCPUS'
 
 python calculate_mordred_descriptors.py &> Progress.log
 

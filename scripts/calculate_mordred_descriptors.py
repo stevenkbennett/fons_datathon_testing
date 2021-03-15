@@ -1,20 +1,18 @@
 """Use Mordred to calculate both 2D and 3D descriptors for molecules from the CSD."""
-import collections
+from concurrent.futures import TimeoutError
 from mordred import descriptors, Calculator
-from mordred import error
-from multiprocessing import Process, Manager
-from mordred._base.pandas_module import MordredDataFrame
+from multiprocessing import Manager
 from rdkit.Chem.MolStandardize import standardize_smiles
 import os
 from rdkit import Chem
 import multiprocessing as mp
 import itertools as it
-from time import sleep
-from warnings import warn
 import pandas as pd
 from collections import defaultdict
 import logging
 from rdkit.Chem.rdmolfiles import SDWriter
+from pebble import ProcessPool
+from functools import partial
 
 logging.basicConfig(
     format="%(asctime)s %(message)s",
@@ -66,18 +64,18 @@ def quick_conf_search(smiles, cache):
         num_confs = 500
         embed_res = Chem.rdDistGeom.EmbedMultipleConfs(mol, num_confs, params)
         if embed_res == -1:
-            warn(
+            logging.warning(
                 f"Embedding failed with random seed {random_seed}. "
                 "Returning None."
             )
             return None
         # Optimise all conformers of the molecule.
         res = Chem.rdForceFieldHelpers.MMFFOptimizeMoleculeConfs(
-            mol, numThreads=0
+            mol, numThreads=1
         )
         while True:
             if len(res) == 0:
-                warn(
+                logging.warning(
                     "All force field optimisations could not converge. "
                     "Returning None."
                 )
@@ -127,15 +125,22 @@ def parallel_conf_search(smiles, processes=-1):
     d = m.dict()
     # Create processes
     logging.info(f"Running conformer searches with {processes} processes.")
-    pool = mp.Pool(processes)
-    f = pool.starmap_async(
-        quick_conf_search,
-        it.product(smiles, [d]),
-        error_callback=lambda x: logging.error(
-            "An error occured during conformer calculation."
-        ),
-    )
-    return list(f.get())
+    pool = ProcessPool(processes)
+    f = partial(quick_conf_search, cache=d)
+    future = pool.map(f, smiles, timeout=600)
+    iterator = future.result()
+    res = []
+    while True:
+        try:
+            r = next(iterator)
+            res.append(r)
+        except TimeoutError:
+            logging.error("Function took too long to execute.")
+
+        except StopIteration:
+            logging.info("Finished performing descriptor search.")
+            break
+    return res
 
 
 def parallel_descriptor_calc(mols, processes=-1):
@@ -147,15 +152,23 @@ def parallel_descriptor_calc(mols, processes=-1):
     logging.info(
         f"Running descriptor calculations with {processes} processes."
     )
-    pool = mp.Pool(processes)
-    f = pool.starmap_async(
-        calculate_descriptors,
-        it.product(mols, [d]),
-        error_callback=lambda x: logging.error(
-            "An error occured during conformer calculation."
-        ),
-    )
-    return list(f.get())
+    pool = ProcessPool(processes)
+    f = partial(calculate_descriptors, cache=d)
+    future = pool.map(f, mols, timeout=600)
+    iterator = future.result()
+    res = []
+    while True:
+        try:
+            r = next(iterator)
+            res.append(r)
+
+        except TimeoutError:
+            logging.error("Function took too long to execute.")
+
+        except StopIteration:
+            logging.info("Finished performing descriptor search.")
+            break
+    return res
 
 
 def parse_results(smiles, res):
@@ -179,7 +192,7 @@ def main():
     # # This is so the index is maintained throughout the descriptor calculation.
     smiles = mol2_to_smiles(
         "/rds/general/user/sb2518/home/PhD/FONS_Datathon/small_molecule_search.mol2"
-    )[:100]
+    )
     # Smiles for testing
     # smiles = ["C" * i for i in range(1, 200)][:8]
     # smiles += [None]
