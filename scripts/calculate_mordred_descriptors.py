@@ -11,7 +11,7 @@ import pandas as pd
 from collections import defaultdict
 import logging
 from rdkit.Chem.rdmolfiles import SDWriter
-from pebble import ProcessPool
+from pebble import ProcessPool, ProcessExpired
 from functools import partial
 
 logging.basicConfig(
@@ -137,9 +137,13 @@ def parallel_conf_search(smiles, processes=-1):
         except TimeoutError:
             logging.error("Function took too long to execute.")
 
+        except ProcessExpired:
+            logging.info("Unexpected error in process.")
+
         except StopIteration:
             logging.info("Finished performing descriptor search.")
             break
+
     return res
 
 
@@ -164,6 +168,9 @@ def parallel_descriptor_calc(mols, processes=-1):
 
         except TimeoutError:
             logging.error("Function took too long to execute.")
+
+        except ProcessExpired:
+            logging.info("Unexpected error in process.")
 
         except StopIteration:
             logging.info("Finished performing descriptor search.")
