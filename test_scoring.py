@@ -137,6 +137,7 @@ def main():
         issue_str += "No results submitted for bonus task 2\n\n"
 
     if Path("bonus_3_predictions.csv").exists():
+        df = pd.read_csv("hidden_test_data/test_crystals.csv")
         y_true = np.array(df["spacegroup_symbol"])
         y_pred_df = pd.read_csv("bonus_3_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
