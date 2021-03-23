@@ -100,7 +100,7 @@ def main():
         mae = np.around(metrics.mean_absolute_error(y_true, y_pred), 3)
         r2 = np.around(metrics.r2_score(y_true, y_pred), 3)
         nMAE = np.around(calc_nMAE(y_true, y_pred), 3)
-        npoints = points(1 - calc_nMAE(y_true, y_pred))
+        npoints = points(1 - calc_nMAE(y_true, y_pred), max_points=10)
         issue_str += "Bonus Task 1 Prediction\n-----------------\n"
         issue_str += f"Mean Absolute Error: {mae}\n"
         issue_str += f"R<sup>2</sup>: {r2}\n"
@@ -118,7 +118,7 @@ def main():
         mae = np.around(metrics.mean_absolute_error(y_true, y_pred), 3)
         r2 = np.around(metrics.r2_score(y_true, y_pred), 3)
         nMAE = np.around(calc_nMAE(y_true, y_pred), 3)
-        npoints = points(1 - calc_nMAE(y_true, y_pred))
+        npoints = points(1 - calc_nMAE(y_true, y_pred), max_points=10)
         issue_str += "Bonus Task 2 Prediction\n-----------------\n"
         issue_str += f"Mean Absolute Error: {mae}\n"
         issue_str += f"R<sup>2</sup>: {r2}\n"
@@ -135,7 +135,7 @@ def main():
         acc = np.around(metrics.accuracy_score(y_true, y_pred), 3)
         f1mac = metrics.f1_score(y_true, y_pred, average="macro")
         f1wei = metrics.f1_score(y_true, y_pred, average="weighted")
-        npoints = points(metrics.f1_score(y_true, y_pred, average="macro"))
+        npoints = points(metrics.f1_score(y_true, y_pred, average="macro"), max_points=10)
         issue_str += "Bonus Task 3 Prediction\n-----------------\n"
         issue_str += f"Accuracy: {acc}\n"
         issue_str += f"Macro F1-score: {f1mac}\n"
