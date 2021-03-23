@@ -156,7 +156,7 @@ def main():
         issue_str += "No results submitted for bonus task 3\n\n"
 
     issue_str += "__Total Points__\n-----------------\n"
-    issue_str += f"{points_total}\n\n"
+    issue_str += f"{points_total}/130\n\n"
 
     pr.create_issue_comment(issue_str)
 

@@ -4,7 +4,7 @@ Automated checking repository
 This is a repository for automated testing of your predictions against the test data.
 To score your predictions, simply navigate to your team's branch and upload your predictions as a `.csv` file using the names `task_x_predictions.csv` or `bonus_x_predictions.csv` according to the number of task you wish to be scored. Then, if not already done so, create a pull request from your branch into the main branch. Once you have submitted your pull request, wait a few minutes and your results will appear in the comments! If you have already created a pull request, all you have to do is navigate to it and again, wait a few minutes for your scores. 
 
-You do not have to submit all the tasks at once! Feel free to submit as many of tasks or bonus tasks as you wish! 
+You do not have to submit all the tasks at once! Feel free to submit as many of tasks or bonus tasks as you wish! Note that this auto-checking service can only check the 4 main tasks as well as the first 3 bonus tasks. *For any other bonus tasks, please contact a demonstrator for manual scoring.*
 
 
 These `.csv` files should be one prediction per line, with a total line length of 3,363 to match the test dataset size.
