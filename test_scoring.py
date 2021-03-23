@@ -17,7 +17,7 @@ def main():
     pr_id = os.environ.get("TRAVIS_PULL_REQUEST", None)
     if pr_id == "false" or pr_id == None:
         pr_id = 1
-    repo = g.get_repo(339068543)
+    repo = g.get_repo(350697371)
     pr = repo.get_pull(int(pr_id))
     issue_str = ""
 
