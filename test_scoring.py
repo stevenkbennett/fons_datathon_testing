@@ -44,8 +44,8 @@ def main():
         y_pred_df = pd.read_csv("task_2_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
         acc = np.around(metrics.accuracy_score(y_true, y_pred), 3)
-        f1mac = metrics.f1_score(y_pred_df, y_pred, average="macro")
-        f1wei = metrics.f1_score(y_pred_df, y_pred, average="weighted")
+        f1mac = metrics.f1_score(y_true, y_pred, average="macro")
+        f1wei = metrics.f1_score(y_true, y_pred, average="weighted")
         npoints = points(metrics.f1_score(y_true, y_pred, average="macro"))
         issue_str += "Task 2 Prediction\n-----------------\n"
         issue_str += f"Accuracy: {acc}\n"
@@ -133,8 +133,8 @@ def main():
         y_pred_df = pd.read_csv("bonus_3_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
         acc = np.around(metrics.accuracy_score(y_true, y_pred), 3)
-        f1mac = metrics.f1_score(y_pred_df, y_pred, average="macro")
-        f1wei = metrics.f1_score(y_pred_df, y_pred, average="weighted")
+        f1mac = metrics.f1_score(y_true, y_pred, average="macro")
+        f1wei = metrics.f1_score(y_true, y_pred, average="weighted")
         npoints = points(metrics.f1_score(y_true, y_pred, average="macro"))
         issue_str += "Bonus Task 3 Prediction\n-----------------\n"
         issue_str += f"Accuracy: {acc}\n"
