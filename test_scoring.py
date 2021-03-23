@@ -26,9 +26,9 @@ def main():
         y_true = np.array(df["calculated_density"])
         y_pred_df = pd.read_csv("task_1_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
-        mae = round_to_n(metrics.mean_absolute_error(y_true, y_pred), 3)
-        r2 = round_to_n(metrics.r2_score(y_true, y_pred), 3)
-        nMAE = round_to_n(calc_nMAE(y_true, y_pred), 3)
+        mae = np.around(metrics.mean_absolute_error(y_true, y_pred), 3)
+        r2 = np.around(metrics.r2_score(y_true, y_pred), 3)
+        nMAE = np.around(calc_nMAE(y_true, y_pred), 3)
         npoints = points(1 - calc_nMAE(y_true, y_pred))
         issue_str += "Task 1 Prediction\n-----------------\n"
         issue_str += f"Mean Absolute Error: {mae}\n"
@@ -43,7 +43,7 @@ def main():
         y_true = np.array(df["is_centrosymmetric"])
         y_pred_df = pd.read_csv("task_2_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
-        acc = round_to_n(metrics.accuracy_score(y_true, y_pred), 3)
+        acc = np.around(metrics.accuracy_score(y_true, y_pred), 3)
         f1mac = metrics.f1_score(y_pred_df, y_pred, average="macro")
         f1wei = metrics.f1_score(y_pred_df, y_pred, average="weighted")
         npoints = points(metrics.f1_score(y_true, y_pred, average="macro"))
@@ -61,9 +61,9 @@ def main():
         y_true = np.array(df["mean"])
         y_pred_df = pd.read_csv("task_3_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
-        mae = round_to_n(metrics.mean_absolute_error(y_true, y_pred), 3)
-        r2 = round_to_n(metrics.r2_score(y_true, y_pred), 3)
-        nMAE = round_to_n(calc_nMAE(y_true, y_pred), 3)
+        mae = np.around(metrics.mean_absolute_error(y_true, y_pred), 3)
+        r2 = np.around(metrics.r2_score(y_true, y_pred), 3)
+        nMAE = np.around(calc_nMAE(y_true, y_pred), 3)
         npoints = points(1 - calc_nMAE(y_true, y_pred))
         issue_str += "Task 3 Prediction\n-----------------\n"
         issue_str += f"Mean Absolute Error: {mae}\n"
@@ -79,9 +79,9 @@ def main():
         y_true = np.array(df["n_vdw_contacts"])
         y_pred_df = pd.read_csv("task_3_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
-        mae = round_to_n(metrics.mean_absolute_error(y_true, y_pred), 3)
-        r2 = round_to_n(metrics.r2_score(y_true, y_pred), 3)
-        nMAE = round_to_n(calc_nMAE(y_true, y_pred), 3)
+        mae = np.around(metrics.mean_absolute_error(y_true, y_pred), 3)
+        r2 = np.around(metrics.r2_score(y_true, y_pred), 3)
+        nMAE = np.around(calc_nMAE(y_true, y_pred), 3)
         npoints = points(1 - calc_nMAE(y_true, y_pred))
         issue_str += "Task 4 Prediction\n-----------------\n"
         issue_str += f"Mean Absolute Error: {mae}\n"
@@ -97,9 +97,9 @@ def main():
         y_true = np.array(df["packing_coefficient"])
         y_pred_df = pd.read_csv("bonus_1_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
-        mae = round_to_n(metrics.mean_absolute_error(y_true, y_pred), 3)
-        r2 = round_to_n(metrics.r2_score(y_true, y_pred), 3)
-        nMAE = round_to_n(calc_nMAE(y_true, y_pred), 3)
+        mae = np.around(metrics.mean_absolute_error(y_true, y_pred), 3)
+        r2 = np.around(metrics.r2_score(y_true, y_pred), 3)
+        nMAE = np.around(calc_nMAE(y_true, y_pred), 3)
         npoints = points(1 - calc_nMAE(y_true, y_pred))
         issue_str += "Bonus Task 1 Prediction\n-----------------\n"
         issue_str += f"Mean Absolute Error: {mae}\n"
@@ -115,9 +115,9 @@ def main():
         y_true = np.array(df["cell_volume"])
         y_pred_df = pd.read_csv("bonus_2_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
-        mae = round_to_n(metrics.mean_absolute_error(y_true, y_pred), 3)
-        r2 = round_to_n(metrics.r2_score(y_true, y_pred), 3)
-        nMAE = round_to_n(calc_nMAE(y_true, y_pred), 3)
+        mae = np.around(metrics.mean_absolute_error(y_true, y_pred), 3)
+        r2 = np.around(metrics.r2_score(y_true, y_pred), 3)
+        nMAE = np.around(calc_nMAE(y_true, y_pred), 3)
         npoints = points(1 - calc_nMAE(y_true, y_pred))
         issue_str += "Bonus Task 2 Prediction\n-----------------\n"
         issue_str += f"Mean Absolute Error: {mae}\n"
@@ -132,7 +132,7 @@ def main():
         y_true = np.array(df["spacegroup_symbol"])
         y_pred_df = pd.read_csv("bonus_3_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
-        acc = round_to_n(metrics.accuracy_score(y_true, y_pred), 3)
+        acc = np.around(metrics.accuracy_score(y_true, y_pred), 3)
         f1mac = metrics.f1_score(y_pred_df, y_pred, average="macro")
         f1wei = metrics.f1_score(y_pred_df, y_pred, average="weighted")
         npoints = points(metrics.f1_score(y_true, y_pred, average="macro"))
@@ -146,10 +146,6 @@ def main():
         issue_str += "No results submitted for bonus task 3\n"
 
     pr.create_issue_comment(issue_str)
-
-
-def round_to_n(x, n):
-    return round(x, -int(floor(log10(x))) + (n - 1))
 
 
 def calc_nMAE(true, pred):
