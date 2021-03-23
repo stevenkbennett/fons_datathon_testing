@@ -7,3 +7,4 @@ These `.csv` files should be one prediction per line, with a total line length o
 Once you have submitted your pull request, wait a few minutes and your results will appear in the comments! 
 If you are confused how to format your `.csv`, see `example_predictions.csv` or ask a demonstrator!
 If you are new to GitHub and haven't submitted a pull request before, please ask a demonstrator!
+An example pull request can be seen by selecting the `pull requests` tab on the top and looking in `Example Pull Request`.
