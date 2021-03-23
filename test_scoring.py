@@ -22,7 +22,7 @@ def main():
     issue_str = ""
 
     if Path("task_1_predictions.csv").exists():
-        df = pd.read_csv("train_and_test_sets/test_crystals.csv")
+        df = pd.read_csv("hidden_test_data/test_crystals.csv")
         y_true = np.array(df["calculated_density"])
         y_pred_df = pd.read_csv("task_1_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
@@ -57,7 +57,7 @@ def main():
         issue_str += "No results submitted for task 2\n\n"
 
     if Path("task_3_predictions.csv").exists():
-        df = pd.read_csv("train_and_test_sets/test_distances.csv")
+        df = pd.read_csv("hidden_test_data/test_distances.csv")
         y_true = np.array(df["mean"])
         y_pred_df = pd.read_csv("task_3_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
@@ -75,7 +75,7 @@ def main():
         issue_str += "No results submitted for task 3\n\n"
 
     if Path("task_4_predictions.csv").exists():
-        df = pd.read_csv("train_and_test_sets/test_distances.csv")
+        df = pd.read_csv("hidden_test_data/test_distances.csv")
         y_true = np.array(df["n_vdw_contacts"])
         y_pred_df = pd.read_csv("task_3_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
@@ -93,7 +93,7 @@ def main():
         issue_str += "No results submitted for task 4\n\n"
 
     if Path("bonus_1_predictions.csv").exists():
-        df = pd.read_csv("train_and_test_sets/test_crystals.csv")
+        df = pd.read_csv("hidden_test_data/test_crystals.csv")
         y_true = np.array(df["packing_coefficient"])
         y_pred_df = pd.read_csv("bonus_1_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
@@ -111,7 +111,7 @@ def main():
         issue_str += "No results submitted for bonus task 1\n\n"
 
     if Path("bonus_2_predictions.csv").exists():
-        df = pd.read_csv("train_and_test_sets/test_crystals.csv")
+        df = pd.read_csv("hidden_test_data/test_crystals.csv")
         y_true = np.array(df["cell_volume"])
         y_pred_df = pd.read_csv("bonus_2_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]

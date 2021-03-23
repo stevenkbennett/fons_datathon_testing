@@ -1,19 +1,19 @@
-language: python 
+language: python
 cache: pip
 branches:
-  only: 
-    - main
+  only:
+  - main
 env:
   global:
-    secure: "Klbq1l2GjtH9PdHJzjKiL1ejdJBC6NzqI8rNvGZSwJPbljgn3s/lciSQ2TA4jsZNGhNl51e6Ykqs6QzIqWuf4gnNlkWn+n97uQ1hrXfXY3ChvewC+uLyIhkIUfUSkOkXd3dg6NlXSFW2ZTps6ErePd9jNuPamfhpKMsJdV6alQbu4Ju2amzDLLi3nMtWTuwaSGdkafo/MpWMT7+6dZ/7E7iRot9m22QP2st/+JVJb37WJ2SgpJY52JoRP8S8dd9WBc5lEis+BPYaP8UCRfUb2kv+aM844YksJ0y1THh1LFxy6FIGISKy6GIKiBmd0jMHYqYwGOCrWZH+VYEIkSmPKse9up4BPU7AjP9PL2LBE8kMULkN9lLQroqPxEiojM3+sHKziSz0PRIMF+wJPfjSNi0omZtLOQAOAq50f1O1/LscOIZCJviLyWyrJ+wuYX+fMeGumCpQYpNpPw/AYbmsMyQUGz058poafNlw4cjF1Bst0lTyOdhk8SkO8QS+KASe3naeo5e85RA3fkju9U7MbQICbG8kLg8EOL0TyKez8isrQ9s6sI2ouhQ+xOf5Xk5pETrCxcuDfYVFqnNm1ojN72YRQsW/0ABIMrtStkHKoIMt+l9oGi65g5uwG+p9lN9vL26s8CcUFM6HLhflykaBOmIUZc7ig3d1NyDN2yHt1GA="
-python: 
-  - "3.8"
-before_install:
-  - openssl aes-256-cbc -K $encrypted_2331e161102b_key -iv $encrypted_2331e161102b_iv -in test_data.tar.enc -out test_data.tar -d
-  - tar xvf test_data.tar
+    secure: FSpIfDEYwsgFHfxOTkdXHMYtVo/47nuNj/TVYucmEGxGOVK7EHggDZArf5UOOTa1msVtLtp43wJH5QHVbYNU77t+/I1WApJsaYVGsfeohbnHAsUOoxuUw9Scs4vVUjLgmVxzBqT8OEfirPhTrgffvgmH7DaVM+VodVG+MFkZ0oHNr/OCOpk02Ib6zSs25OVb41ymxQf5q0n+h7fdF4zD6T/3Dv3O59Y/3TZvB9dKj50wvfU+6AXZzGV8qayUfVyEk6WKskCsoGixB6JpbFBGzNqCdg7Yc9ZxYG+6PgQf1kHGOOPVIbE4Gu2shI2Amt2i02+UHXh13brgDMJwsSFJZAIMDB4GdJeeZliGPF8DMQkhU2NSl64luDYeH1a1+VjsOPXBuFIsb5yVUCRUxxkQvfUyPSk0f7cOvgcVuryN7OtiFAhMRrtwGpyoFd1O9wSiRdj7NmrLm1Mo8VjudIFVR2Mg3rwDvBMA7SBiZ7G1rZKIIT0V9CUR6rv9TsO1V4Gf7ML2YxhzsHH5q3bwGd7zv9CwwIrczctkpJQaZpI+guYjSA8PHvjyc0sm8l0AyTVsJzvGeocQgx++LoxY4WfqLnZlAAtow25wfQj5fu68xkXSwMiuK2YCzUSLkQg4nkSxCO7QdnO04EkVj48IBQIO9izumgvXNNzm+YRw6XtsfSs=
+python:
+- '3.8'
 install:
-  - pip install scikit-learn
-  - pip install pandas
-  - pip install PyGithub
+- pip install scikit-learn
+- pip install pandas
+- pip install PyGithub
 script:
-  - python test_scoring.py
+- python test_scoring.py
+before_install:
+- openssl aes-256-cbc -K $encrypted_7733ca46354e_key -iv $encrypted_7733ca46354e_iv
+  -in hidden_test_data.tar.enc -out hidden_test_data.tar -d
