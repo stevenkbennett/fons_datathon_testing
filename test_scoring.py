@@ -53,8 +53,8 @@ def main():
         points_total += npoints
         issue_str += "Task 2 Prediction - Centrosymmetric\n-----------------\n"
         issue_str += f"Accuracy: {acc}\n"
-        issue_str += f"Macro F1-score: {f1mac}\n"
-        issue_str += f"Weighted F1-score (Assessed): {f1wei}\n"
+        issue_str += f"Macro F1-score (Assessed): {f1mac}\n"
+        issue_str += f"Weighted F1-score: {f1wei}\n"
         issue_str += f"__Points: {npoints}__\n\n"
     else:
         issue_str += "Task 2 Prediction - Centrosymmetric\n-----------------\n"
@@ -148,8 +148,8 @@ def main():
         points_total += npoints
         issue_str += "Bonus Task 3 Prediction - Space Group Symbol\n-----------------\n"
         issue_str += f"Accuracy: {acc}\n"
-        issue_str += f"Macro F1-score: {f1mac}\n"
-        issue_str += f"Weighted F1-score (Assessed): {f1wei}\n"
+        issue_str += f"Macro F1-score (Assessed): {f1mac}\n"
+        issue_str += f"Weighted F1-score: {f1wei}\n"
         issue_str += f"__Points: {npoints}__\n\n"
     else:
         issue_str += "Bonus Task 3 Prediction - Space Group Symbol\n-----------------\n"
