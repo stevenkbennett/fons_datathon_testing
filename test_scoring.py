@@ -47,8 +47,8 @@ def main():
         y_pred_df = pd.read_csv("task_2_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
         acc = np.around(metrics.accuracy_score(y_true, y_pred), 3)
-        f1mac = metrics.f1_score(y_true, y_pred, average="macro")
-        f1wei = metrics.f1_score(y_true, y_pred, average="weighted")
+        f1mac = np.around(metrics.f1_score(y_true, y_pred, average="macro"), 3)
+        f1wei = np.around(metrics.f1_score(y_true, y_pred, average="weighted"), 3)
         npoints = points(metrics.f1_score(y_true, y_pred, average="macro"))
         points_total += npoints
         issue_str += "Task 2 Prediction - Centrosymmetric\n-----------------\n"
@@ -142,8 +142,8 @@ def main():
         y_pred_df = pd.read_csv("bonus_3_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
         acc = np.around(metrics.accuracy_score(y_true, y_pred), 3)
-        f1mac = metrics.f1_score(y_true, y_pred, average="macro")
-        f1wei = metrics.f1_score(y_true, y_pred, average="weighted")
+        f1mac = np.around(metrics.f1_score(y_true, y_pred, average="macro"), 3)
+        f1wei = np.aronud(metrics.f1_score(y_true, y_pred, average="weighted"), 3)
         npoints = points(metrics.f1_score(y_true, y_pred, average="macro"), max_points=10)
         points_total += npoints
         issue_str += "Bonus Task 3 Prediction - Space Group Symbol\n-----------------\n"
