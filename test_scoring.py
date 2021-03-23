@@ -20,6 +20,7 @@ def main():
     repo = g.get_repo(350697371)
     pr = repo.get_pull(int(pr_id))
     issue_str = ""
+    points_total = 0
 
     if Path("task_1_predictions.csv").exists():
         df = pd.read_csv("hidden_test_data/test_crystals.csv")
@@ -30,16 +31,18 @@ def main():
         r2 = np.around(metrics.r2_score(y_true, y_pred), 3)
         nMAE = np.around(calc_nMAE(y_true, y_pred), 3)
         npoints = points(1 - calc_nMAE(y_true, y_pred))
-        issue_str += "Task 1 Prediction\n-----------------\n"
+        points_total += npoints
+        issue_str += "Task 1 Prediction - Density\n-----------------\n"
         issue_str += f"Mean Absolute Error: {mae}\n"
         issue_str += f"R<sup>2</sup>: {r2}\n"
         issue_str += f"Normalised Mean Absolute Error (Assessed): {nMAE}\n"
         issue_str += f"__Points: {npoints}__\n\n"
     else:
-        issue_str += "Task 1 Prediction\n-----------------\n"
+        issue_str += "Task 1 Prediction - Density\n-----------------\n"
         issue_str += "No results submitted for task 1\n\n"
 
     if Path("task_2_predictions.csv").exists():
+        df = pd.read_csv("hidden_test_data/test_crystals.csv")
         y_true = np.array(df["is_centrosymmetric"])
         y_pred_df = pd.read_csv("task_2_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
@@ -47,17 +50,18 @@ def main():
         f1mac = metrics.f1_score(y_true, y_pred, average="macro")
         f1wei = metrics.f1_score(y_true, y_pred, average="weighted")
         npoints = points(metrics.f1_score(y_true, y_pred, average="macro"))
-        issue_str += "Task 2 Prediction\n-----------------\n"
+        points_total += npoints
+        issue_str += "Task 2 Prediction - Centrosymmetric\n-----------------\n"
         issue_str += f"Accuracy: {acc}\n"
         issue_str += f"Macro F1-score: {f1mac}\n"
         issue_str += f"Weighted F1-score (Assessed): {f1wei}\n"
         issue_str += f"__Points: {npoints}__\n\n"
     else:
-        issue_str += "Task 2 Prediction\n-----------------\n"
+        issue_str += "Task 2 Prediction - Centrosymmetric\n-----------------\n"
         issue_str += "No results submitted for task 2\n\n"
 
     if Path("task_3_predictions.csv").exists():
-        df = pd.read_csv("hidden_test_data/test_distances.csv")
+        df = pd.read_csv("hidden_test_data/test_centroid_distances.csv")
         y_true = np.array(df["mean"])
         y_pred_df = pd.read_csv("task_3_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
@@ -65,13 +69,14 @@ def main():
         r2 = np.around(metrics.r2_score(y_true, y_pred), 3)
         nMAE = np.around(calc_nMAE(y_true, y_pred), 3)
         npoints = points(1 - calc_nMAE(y_true, y_pred))
-        issue_str += "Task 3 Prediction\n-----------------\n"
+        points_total += npoints
+        issue_str += "Task 3 Prediction - Mean Distances\n-----------------\n"
         issue_str += f"Mean Absolute Error: {mae}\n"
         issue_str += f"R<sup>2</sup>: {r2}\n"
         issue_str += f"Normalised Mean Absolute Error (Assessed): {nMAE}\n"
         issue_str += f"__Points: {npoints}__\n\n"
     else:
-        issue_str += "Task 3 Prediction\n-----------------\n"
+        issue_str += "Task 3 Prediction - Mean Distances\n-----------------\n"
         issue_str += "No results submitted for task 3\n\n"
 
     if Path("task_4_predictions.csv").exists():
@@ -83,13 +88,14 @@ def main():
         r2 = np.around(metrics.r2_score(y_true, y_pred), 3)
         nMAE = np.around(calc_nMAE(y_true, y_pred), 3)
         npoints = points(1 - calc_nMAE(y_true, y_pred))
-        issue_str += "Task 4 Prediction\n-----------------\n"
+        points_total += npoints
+        issue_str += "Task 4 Prediction - Van der Waals Contacts\n-----------------\n"
         issue_str += f"Mean Absolute Error: {mae}\n"
         issue_str += f"R<sup>2</sup>: {r2}\n"
         issue_str += f"Normalised Mean Absolute Error (Assessed): {nMAE}\n"
         issue_str += f"__Points: {npoints}__\n\n"
     else:
-        issue_str += "Task 4 Prediction\n-----------------\n"
+        issue_str += "Task 4 Prediction - Van der Waals Contacts\n-----------------\n"
         issue_str += "No results submitted for task 4\n\n"
 
     if Path("bonus_1_predictions.csv").exists():
@@ -101,13 +107,14 @@ def main():
         r2 = np.around(metrics.r2_score(y_true, y_pred), 3)
         nMAE = np.around(calc_nMAE(y_true, y_pred), 3)
         npoints = points(1 - calc_nMAE(y_true, y_pred), max_points=10)
-        issue_str += "Bonus Task 1 Prediction\n-----------------\n"
+        points_total += npoints
+        issue_str += "Bonus Task 1 Prediction - Packing Coefficient\n-----------------\n"
         issue_str += f"Mean Absolute Error: {mae}\n"
         issue_str += f"R<sup>2</sup>: {r2}\n"
         issue_str += f"Normalised Mean Absolute Error (Assessed): {nMAE}\n"
         issue_str += f"__Points: {npoints}__\n\n"
     else:
-        issue_str += "Bonus Task 1 Prediction\n-----------------\n"
+        issue_str += "Bonus Task 1 Prediction - Packing Coefficient\n-----------------\n"
         issue_str += "No results submitted for bonus task 1\n\n"
 
     if Path("bonus_2_predictions.csv").exists():
@@ -119,16 +126,18 @@ def main():
         r2 = np.around(metrics.r2_score(y_true, y_pred), 3)
         nMAE = np.around(calc_nMAE(y_true, y_pred), 3)
         npoints = points(1 - calc_nMAE(y_true, y_pred), max_points=10)
-        issue_str += "Bonus Task 2 Prediction\n-----------------\n"
+        points_total += npoints
+        issue_str += "Bonus Task 2 Prediction - Cell Volume\n-----------------\n"
         issue_str += f"Mean Absolute Error: {mae}\n"
         issue_str += f"R<sup>2</sup>: {r2}\n"
         issue_str += f"Normalised Mean Absolute Error (Assessed): {nMAE}\n"
         issue_str += f"__Points: {npoints}__\n\n"
     else:
-        issue_str += "Bonus Task 2 Prediction\n-----------------\n"
+        issue_str += "Bonus Task 2 Prediction - Cell Volume\n-----------------\n"
         issue_str += "No results submitted for bonus task 2\n\n"
 
     if Path("bonus_3_predictions.csv").exists():
+        df = pd.read_csv("hidden_test_data/test_crystals.csv")
         y_true = np.array(df["spacegroup_symbol"])
         y_pred_df = pd.read_csv("bonus_3_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
@@ -136,14 +145,18 @@ def main():
         f1mac = metrics.f1_score(y_true, y_pred, average="macro")
         f1wei = metrics.f1_score(y_true, y_pred, average="weighted")
         npoints = points(metrics.f1_score(y_true, y_pred, average="macro"), max_points=10)
-        issue_str += "Bonus Task 3 Prediction\n-----------------\n"
+        points_total += npoints
+        issue_str += "Bonus Task 3 Prediction - Space Group Symbol\n-----------------\n"
         issue_str += f"Accuracy: {acc}\n"
         issue_str += f"Macro F1-score: {f1mac}\n"
         issue_str += f"Weighted F1-score (Assessed): {f1wei}\n"
         issue_str += f"__Points: {npoints}__\n\n"
     else:
-        issue_str += "Bonus Task 3 Prediction\n-----------------\n"
-        issue_str += "No results submitted for bonus task 3\n"
+        issue_str += "Bonus Task 3 Prediction - Space Group Symbol\n-----------------\n"
+        issue_str += "No results submitted for bonus task 3\n\n"
+
+    issue_str += "__Total Points__\n-----------------\n"
+    issue_str += f"{points_total}\n\n"
 
     pr.create_issue_comment(issue_str)
 
