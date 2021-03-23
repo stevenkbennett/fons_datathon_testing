@@ -17,3 +17,4 @@ script:
 before_install:
 - openssl aes-256-cbc -K $encrypted_7733ca46354e_key -iv $encrypted_7733ca46354e_iv
   -in hidden_test_data.tar.enc -out hidden_test_data.tar -d
+- tar xvf hidden_test_data.tar
