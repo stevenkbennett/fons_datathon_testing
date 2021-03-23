@@ -1,0 +1,19 @@
+language: python 
+cache: pip
+branches:
+  only: 
+    - main
+env:
+  global:
+    secure: "Klbq1l2GjtH9PdHJzjKiL1ejdJBC6NzqI8rNvGZSwJPbljgn3s/lciSQ2TA4jsZNGhNl51e6Ykqs6QzIqWuf4gnNlkWn+n97uQ1hrXfXY3ChvewC+uLyIhkIUfUSkOkXd3dg6NlXSFW2ZTps6ErePd9jNuPamfhpKMsJdV6alQbu4Ju2amzDLLi3nMtWTuwaSGdkafo/MpWMT7+6dZ/7E7iRot9m22QP2st/+JVJb37WJ2SgpJY52JoRP8S8dd9WBc5lEis+BPYaP8UCRfUb2kv+aM844YksJ0y1THh1LFxy6FIGISKy6GIKiBmd0jMHYqYwGOCrWZH+VYEIkSmPKse9up4BPU7AjP9PL2LBE8kMULkN9lLQroqPxEiojM3+sHKziSz0PRIMF+wJPfjSNi0omZtLOQAOAq50f1O1/LscOIZCJviLyWyrJ+wuYX+fMeGumCpQYpNpPw/AYbmsMyQUGz058poafNlw4cjF1Bst0lTyOdhk8SkO8QS+KASe3naeo5e85RA3fkju9U7MbQICbG8kLg8EOL0TyKez8isrQ9s6sI2ouhQ+xOf5Xk5pETrCxcuDfYVFqnNm1ojN72YRQsW/0ABIMrtStkHKoIMt+l9oGi65g5uwG+p9lN9vL26s8CcUFM6HLhflykaBOmIUZc7ig3d1NyDN2yHt1GA="
+python: 
+  - "3.8"
+before_install:
+  - openssl aes-256-cbc -K $encrypted_2331e161102b_key -iv $encrypted_2331e161102b_iv -in test_data.tar.enc -out test_data.tar -d
+  - tar xvf test_data.tar
+install:
+  - pip install scikit-learn
+  - pip install pandas
+  - pip install PyGithub
+script:
+  - python test_scoring.py
