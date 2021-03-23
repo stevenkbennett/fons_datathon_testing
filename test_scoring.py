@@ -82,7 +82,7 @@ def main():
     if Path("task_4_predictions.csv").exists():
         df = pd.read_csv("hidden_test_data/test_distances.csv")
         y_true = np.array(df["n_vdw_contacts"])
-        y_pred_df = pd.read_csv("task_3_predictions.csv", header=None)
+        y_pred_df = pd.read_csv("task_4_predictions.csv", header=None)
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
         mae = np.around(metrics.mean_absolute_error(y_true, y_pred), 3)
         r2 = np.around(metrics.r2_score(y_true, y_pred), 3)
@@ -143,7 +143,7 @@ def main():
         y_pred = [j for i in y_pred_df.to_numpy() for j in i]
         acc = np.around(metrics.accuracy_score(y_true, y_pred), 3)
         f1mac = np.around(metrics.f1_score(y_true, y_pred, average="macro"), 3)
-        f1wei = np.aronud(metrics.f1_score(y_true, y_pred, average="weighted"), 3)
+        f1wei = np.around(metrics.f1_score(y_true, y_pred, average="weighted"), 3)
         npoints = points(metrics.f1_score(y_true, y_pred, average="macro"), max_points=10)
         points_total += npoints
         issue_str += "Bonus Task 3 Prediction - Space Group Symbol\n-----------------\n"
